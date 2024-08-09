@@ -1,0 +1,26 @@
+{
+  "name": "web_scraper_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test *.test.mjs"
+  },
+  "jest": {
+    "transform": {}
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.3",
+    "cheerio": "^1.0.0-rc.12",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "axios-mock-adapter": "^2.0.0",
+    "jest": "^29.7.0"
+  },
+  "type": "module"
+}
