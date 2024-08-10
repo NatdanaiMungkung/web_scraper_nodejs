@@ -46,6 +46,10 @@ If you encounter any issues:
 3. Check that you have write permissions in the current directory for the `output` folder.
 
 
+## To run without docker
+run
+```npm install```
+```node fetch.js https://www.google.com```
 ## To run test
 the repo has included test to verify that script able to fetch and save it's content with asset correct.
 you can run
