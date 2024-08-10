@@ -44,3 +44,9 @@ If you encounter any issues:
 1. Ensure Docker is running on your machine.
 2. Make sure you have built the Docker image before trying to run it.
 3. Check that you have write permissions in the current directory for the `output` folder.
+
+
+## To run test
+the repo has included test to verify that script able to fetch and save it's content with asset correct.
+you can run
+```npx jest```
