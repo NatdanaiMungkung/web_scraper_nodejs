@@ -7,17 +7,17 @@ This is a Node.js application that fetches web pages and saves them locally. It 
 ## Getting Started
 
 Build the Docker image:
-docker build -t fetch-app .
+```docker build -t fetch-app .```
 ## Usage
 
 ### Basic Usage
 
 To fetch a single webpage:
 ## windows
-docker run --rm -v ${PWD}:/usr/src/app -e OUTPUT_DIR=/output fetch-app https://www.google.com
+```docker run --rm -v ${PWD}:/usr/src/app -e OUTPUT_DIR=/output fetch-app https://www.google.com```
  
 ## Unix / linux / mac
-docker run --rm -v $(pwd):/usr/src/app fetch-app https://www.google.com
+```docker run --rm -v $(pwd):/usr/src/app fetch-app https://www.google.com```
 
 
 This will save the webpage in the `output` directory in your current working directory.
@@ -25,17 +25,17 @@ This will save the webpage in the `output` directory in your current working dir
 ### Fetching Multiple Webpages
 
 To fetch multiple webpages:
-docker run --rm -v $(pwd):/usr/src/app fetch-app https://www.yahoo.com https://www.google.com
+```docker run --rm -v $(pwd):/usr/src/app fetch-app https://www.yahoo.com https://www.google.com```
 
 ### Fetching Metadata
 
 To fetch a webpage and display its metadata:
-docker run --rm -v "$(pwd)/output:/usr/src/app/output" fetch-app --metadata https://www.example.com
+```docker run --rm -v "$(pwd)/output:/usr/src/app/output" fetch-app --metadata https://www.example.com```
 
 
 ## Output
 
-The fetched webpages and their assets will be saved in the `output` directory, organized by domain name. If you used the `--metadata` flag, the metadata will be displayed in the console output.
+The fetched webpages and their assets will be saved in the current working directory, organized by domain name. If you used the `--metadata` flag, the metadata will be displayed in the console output.
 
 ## Troubleshooting
 
