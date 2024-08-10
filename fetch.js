@@ -6,25 +6,43 @@ import axios from "axios";
 import cheerio from "cheerio";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-
+import nock from 'nock'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const setupNock = (url) => {
+  const testUrl = new URL(url).origin;
+
+  const mockHtml = "<html><head></head><body><img src='image.jpg'></body></html>";
+  const mockImage = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+
+  nock(testUrl)
+    .get('/')
+    .reply(200, mockHtml);
+
+  nock(testUrl)
+    .get('/image.jpg')
+    .reply(200, mockImage);
+};
 program
   .version("1.0.0")
   .description("Fetch web pages and save them to disk with assets")
   .option("-m, --metadata", "Display metadata for the fetched pages")
+  .option("-t, --test", "Run in test mode with mock data")
   .arguments("<urls...>")
   .action(async (urls, options) => {
     for (const url of urls) {
+      if (options.test) {
+        setupNock(url);
+      }
       try {
         const { hostname } = new URL(url);
-        const dirPath = path.join(__dirname, hostname);
+        const outputDir = __dirname;
+        const dirPath = path.join(outputDir, hostname);
 
         if (!fs.existsSync(dirPath)) {
           fs.mkdirSync(dirPath, { recursive: true });
         }
-
         const response = await axios.get(url);
         let html = response.data;
 
@@ -111,10 +129,10 @@ function getMetadata(html, url, filename) {
   const lastFetch = stats.mtime.toUTCString();
 
   return `site: ${new URL(url).hostname}
-num_links: ${numLinks}
-images: ${numImages}
-last_fetch: ${lastFetch}
-`;
+          num_links: ${numLinks}
+          images: ${numImages}
+          last_fetch: ${lastFetch}
+          `;
 }
 
 program.parse(process.argv);
